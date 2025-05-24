@@ -1,1 +1,146 @@
+openapi: 3.0.1
+info: 
+  title: АРI кинотеатра Искорка
+  description:
+    API кинотеатра
+  version: 1.0.0
+server: 
+  - url: /
+paths:
+  /booking/places :
+      get:
+        tags:
+        - места на сеансе в зале
+        summary: Проверить наличие мест в зале
+        description: запрос свободных мест в зале на сеанс
+        parameters: 
+         - name: id_films
+           in: query
+           schema:
+            type: integer
+           required: true 
+           example:  3
+         - name: title
+           in: query
+           schema:
+            type: number
+           required: true 
+           example: Название фильма
+         - name: price
+           in: query
+           schema:
+            type: string
+           required: true 
+           example: "1000.00"         
+        responses: 
+          '200':
+            description: Ok
+            content:
+               application/json:
+                 schema:
+                  type: array
+                  items: 
+                    type: object
+                    properties:
+                      placesid: 
+                        description: свободные места в зале
+                        type: object
+                        example: 123
+  /booking:
+     post:
+       tags:
+        - забронировать место
+       summary: Список мест
+       description: запрос свободных мест в зале
+       requestBody:
+        application/json:
+           schema:
+            type: string
+       responses:
+         "200":
+           description: Ok
+           content:
+             application/json:
+               schema:
+                 type: array
+                 items: 
+                   type: object
+                   properties:
+                      filmid:
+                        type: integer
+                        description: название фильма
+                        example: Гарри поттер и кубок огня
+                      date:
+                        type: string
+                        format: date-time
+                        description: дата киносеанса
+                        example: 24.05.25
+                      prace:
+                        type: string
+                        description: стоимость сеанса
+                        example: 1500
+                      place:
+                        type: string
+                        description: свободные места
+                        example: 134579
+  /booking/{id}:
+     put:
+       tags:
+        - изменить заказ
+       summary: Список мест
+       description: запрос свободных мест в зале
+       application/json:
+       responses:
+         "200":
+           description: Ok
+           content:
+             application/json:
+               schema:
+                 type: array
+                 items: 
+                   type: object
+                   properties:
+                      filmid:
+                        type: integer
+                        description: название фильма
+                        example: Гарри поттер и кубок огня
+                      date:
+                        type: string
+                        format: date-time
+                        description: дата киносеанса
+                        example: 24.05.25
+                      time:
+                        type: string
+                        format: date-time
+                        description: время киносеанса
+                        example: 20.00.00
+  /booking/id:
+     delete:
+        tags:
+        - удалить заказ
+        summary: Удаление заказа
+        description:
+          Мягкое удаление заказа
+        parameters:
+         - name: id_booking
+           in: query
+           schema:
+            type: integer
+           required: true 
+           example:  3
+         - name: title
+           in: query
+           schema:
+            type: number
+           required: true 
+           example: Номер заказа
+         - name: price
+           in: query
+           schema:
+            type: Number
+           required: true 
+           example: "Успешно"         
+        responses: 
+          '200':
+            description: Ok
 
